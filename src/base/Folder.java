@@ -1,8 +1,11 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class Folder {
+public class Folder implements Comparable<Folder>{
 
 	private ArrayList<Note> notes;
 	private String name;
@@ -64,6 +67,86 @@ public class Folder {
 		}
 		
 		return name + ":" + nText + ":" + nImage;
+	}
+
+	@Override
+	public int compareTo(Folder o) {
+		// TODO Auto-generated method stub
+		return name.compareTo(o.name);
+	}
+	
+	public void sortNotes() {
+		Collections.sort(notes);
+	}
+	
+	public List<Note> searchNotes(String keywords) {
+		List<Note> foundNotes = new ArrayList<Note>();
+		String[] keyword = keywords.toLowerCase().split(" ");
+		
+		List<String> orList = new ArrayList<String>();
+		List<String> andList = new ArrayList<String>();
+		
+		int count = 0;
+		while (count < keyword.length) {
+			String str = "";
+			if ((count+1 < keyword.length) && (keyword[count+1].equals("or"))) {
+				while ((count+1 < keyword.length) && (keyword[count+1].equals("or"))) {
+					str+= " " + keyword[count];
+					count+=2;
+				}
+				str += " " + keyword[count];
+				orList.add(str);
+				count++;
+			}else {
+				andList.add(keyword[count]);
+				count++;
+			}
+		}
+		if (orList.size() > 0) {
+			andList.addAll(orList);
+		}
+		
+		for (Note note : getNotes()) {
+			boolean found = false;
+			boolean and_check = false;
+			if (note instanceof ImageNote) {
+				String img_title = note.getTitle().toLowerCase();
+				for (String str : andList) {
+					and_check = true;
+					boolean or_check = false;
+					String[] or_keys = str.trim().split(" ");
+					for (int j=0; j < or_keys.length; j++) {
+						if (img_title.contains(or_keys[j])) {
+							or_check = true;
+						}
+					}
+					found = (and_check && or_check);
+				}
+				if (found) {
+					foundNotes.add(note);
+				}
+			}else if (note instanceof TextNote) {
+				TextNote tNote = (TextNote)note;
+				String txt_title = tNote.getTitle().toLowerCase();
+				String txt_content = tNote.getContent().toLowerCase();
+				for (String str : andList) {
+					and_check = true;
+					boolean or_check = false;
+					String[] or_keys = str.trim().split(" ");
+					for (int j=0; j < or_keys.length; j++) {
+						if (txt_title.contains(or_keys[j]) || txt_content.contains(or_keys[j])) {
+							or_check = true;
+						}
+					}
+					found = (and_check && or_check);
+				}
+				if (found) {
+					foundNotes.add(note);
+				}
+			}
+		}
+				
+		return foundNotes;
 	}
 
 }
