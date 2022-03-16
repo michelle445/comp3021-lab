@@ -24,23 +24,23 @@ public class testLab4 {
 			throw new Exception("Your code has some problems.......");
 		}
 		
-//		NoteBook nb2 = new NoteBook("test.ser");
-//		if(!nb2.getFolders().toString().equals("[Java:3:1, Lab:1:0, Course:0:1, Assignment:0:1, CSE:0:1]")){
-//			throw new Exception("Your code has some problems.......");
-//		}else{
-//			System.out.println("your notebook has been loaded");
-//		}
-//		
-//		TextNote t = (TextNote) nb2.getFolders().get(0).getNotes().get(0);
-//		t.exportTextToFile("");
-//		
-//		if(new File(((TextNote) nb2.getFolders().get(0).getNotes().get(0)).getTitle().replaceAll(" ", "_")+".txt").exists()){
-//			System.out.println("TextNote exported in " + new File(((TextNote) nb2.getFolders().get(0).getNotes().get(0)).getTitle().replaceAll(" ", "_")+".txt").getAbsolutePath());
-//		}else{
-//			throw new Exception("Your code has some problems.......");
-//		}
-//		
-//		System.out.println("Congratulations, your code is OK");
+		NoteBook nb2 = new NoteBook("test.ser");
+		if(!nb2.getFolders().toString().equals("[Java:3:1, Lab:1:0, Course:0:1, Assignment:0:1, CSE:0:1]")){
+			throw new Exception("Your code has some problems.......");
+		}else{
+			System.out.println("your notebook has been loaded");
+		}
+		
+		TextNote t = (TextNote) nb2.getFolders().get(0).getNotes().get(0);
+		t.exportTextToFile("");
+		
+		if(new File(((TextNote) nb2.getFolders().get(0).getNotes().get(0)).getTitle().replaceAll(" ", "_")+".txt").exists()){
+			System.out.println("TextNote exported in " + new File(((TextNote) nb2.getFolders().get(0).getNotes().get(0)).getTitle().replaceAll(" ", "_")+".txt").getAbsolutePath());
+		}else{
+			throw new Exception("Your code has some problems.......");
+		}
+		
+		System.out.println("Congratulations, your code is OK");
 
 		
 	}
