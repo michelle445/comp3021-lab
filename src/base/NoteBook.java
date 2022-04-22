@@ -74,6 +74,10 @@ public class NoteBook implements Serializable {
 		Collections.sort(folders);
 	}
 	
+	public void addFolder(String folderName) {
+		folders.add(new Folder(folderName));
+	}
+	
 	public List<Note> searchNotes(String keywords){
 		List<Note> found_notes = new ArrayList<Note>();
 		for (Folder f: folders) {

@@ -12,6 +12,7 @@ public class TextNote extends Note{
 	
 	public TextNote(String title) {
 		super(title);
+		content = "";
 	}
 	
 	public TextNote(String title, String content) {
@@ -21,6 +22,10 @@ public class TextNote extends Note{
 
 	public String getContent() {
 		return content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	private String getTextFromFile(String absolutePath) {
