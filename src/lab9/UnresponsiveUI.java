@@ -57,7 +57,16 @@ public class UnresponsiveUI extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				stop = false;
-				Thread t1 = new Thread(() -> { System.out.println("hello!");});
+				Thread t1 = new Thread(() -> {
+					while (!stop) {
+						System.out.println("hello!");
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						} 
+					} 
+				});
 				t1.start();
 			}
 		});
